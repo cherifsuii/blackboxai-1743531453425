@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minimalist Productivity App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#F7F9FC',
+                        secondary: '#FFFFFF',
+                        accent: '#007AFF',
+                        'accent-hover': '#005BBB',
+                        text: '#1A1A1A',
+                        muted: '#6B7280',
+                        divider: '#E5E7EB'
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'custom': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+                        'custom-hover': '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-primary min-h-screen font-sans">
+    <!-- Header -->
+    <header class="bg-secondary shadow-custom sticky top-0 z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-3">
+                    <i class="fas fa-check-circle text-accent text-3xl"></i>
+                    <h1 class="text-2xl font-bold text-text tracking-tight">Productivity App</h1>
+                </div>
+                <button id="addTaskBtn" 
+                    class="bg-accent hover:bg-accent-hover text-white px-6 py-3 rounded-lg transition-all duration-200 flex items-center transform hover:scale-105 hover:shadow-lg">
+                    <i class="fas fa-plus mr-2"></i>
+                    Add Task
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Stats Section -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="bg-white rounded-xl p-6 shadow-custom hover:shadow-custom-hover transition-shadow">
+                <div class="flex items-center space-x-3">
+                    <div class="bg-blue-100 p-3 rounded-lg">
+                        <i class="fas fa-tasks text-accent text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-muted text-sm">Total Tasks</h3>
+                        <p class="text-2xl font-semibold text-text" id="totalTasks">0</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white rounded-xl p-6 shadow-custom hover:shadow-custom-hover transition-shadow">
+                <div class="flex items-center space-x-3">
+                    <div class="bg-green-100 p-3 rounded-lg">
+                        <i class="fas fa-check text-green-600 text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-muted text-sm">Completed</h3>
+                        <p class="text-2xl font-semibold text-text" id="completedTasks">0</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white rounded-xl p-6 shadow-custom hover:shadow-custom-hover transition-shadow">
+                <div class="flex items-center space-x-3">
+                    <div class="bg-yellow-100 p-3 rounded-lg">
+                        <i class="fas fa-clock text-yellow-600 text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-muted text-sm">Pending</h3>
+                        <p class="text-2xl font-semibold text-text" id="pendingTasks">0</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Task Grid -->
+        <div id="taskGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <!-- Task cards will be dynamically inserted here -->
+        </div>
+    </main>
+
+    <!-- Modal -->
+    <div id="taskModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white rounded-xl w-full max-w-md mx-4 transform transition-all duration-300 scale-95 opacity-0" id="modalContent">
+            <div class="p-8">
+                <div class="flex justify-between items-center mb-8">
+                    <h2 id="modalTitle" class="text-2xl font-semibold text-text">Add New Task</h2>
+                    <button id="closeModal" class="text-muted hover:text-text transition-colors p-2 hover:bg-gray-100 rounded-full">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <form id="taskForm" class="space-y-6">
+                    <div>
+                        <label for="taskTitle" class="block text-sm font-medium text-text mb-2">Task Title</label>
+                        <input type="text" id="taskTitle" name="taskTitle" required
+                            class="w-full px-4 py-3 border border-divider rounded-xl focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-shadow"
+                            placeholder="Enter task title">
+                    </div>
+                    <div>
+                        <label for="taskDescription" class="block text-sm font-medium text-text mb-2">Description</label>
+                        <textarea id="taskDescription" name="taskDescription" rows="3"
+                            class="w-full px-4 py-3 border border-divider rounded-xl focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-shadow"
+                            placeholder="Enter task description"></textarea>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="taskDueDate" class="block text-sm font-medium text-text mb-2">Due Date</label>
+                            <input type="date" id="taskDueDate" name="taskDueDate"
+                                class="w-full px-4 py-3 border border-divider rounded-xl focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-shadow">
+                        </div>
+                        <div>
+                            <label for="taskPriority" class="block text-sm font-medium text-text mb-2">Priority</label>
+                            <select id="taskPriority" name="taskPriority"
+                                class="w-full px-4 py-3 border border-divider rounded-xl focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-shadow">
+                                <option value="low">Low Priority</option>
+                                <option value="medium">Medium Priority</option>
+                                <option value="high">High Priority</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="pt-4 flex justify-end space-x-3">
+                        <button type="button" id="cancelBtn"
+                            class="px-6 py-3 border-2 border-divider rounded-xl text-muted hover:text-text hover:border-accent transition-all duration-200">
+                            Cancel
+                        </button>
+                        <button type="submit"
+                            class="px-6 py-3 bg-accent hover:bg-accent-hover text-white rounded-xl transition-all duration-200 transform hover:scale-105 hover:shadow-lg">
+                            Save Task
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
