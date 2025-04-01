@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CherifsMagazine</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Note: Georgia is a web-safe font, no need to import from Google Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script>
         tailwind.config = {
@@ -154,97 +153,30 @@
     <main class="max-w-7xl mx-auto px-4 sm:px-8 py-8 flex">
         <!-- Articles Column -->
         <div class="flex-1 max-w-content">
-            <!-- Featured Article -->
-            <article class="mb-12 hover-scale article-card rounded-xl overflow-hidden">
-                <div class="featured-image rounded-lg overflow-hidden mb-6">
-                    <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Featured Article" class="w-full h-[450px] object-cover transform transition-transform duration-700 hover:scale-105">
-                </div>
-                <div class="flex items-center space-x-2 text-subtext mb-4">
-                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=40&h=40&q=80" alt="Author" class="w-10 h-10 rounded-full">
-                    <span>John Doe</span>
-                    <span>·</span>
-                    <span>5 min read</span>
-                </div>
-                <h2 class="text-3xl font-bold mb-4 hover:text-accent-hover cursor-pointer">The Art of Mindful Living: A Journey Through Self-Discovery</h2>
-                <p class="text-lg text-subtext mb-4">Explore the transformative power of mindfulness and how it can reshape your daily experiences, relationships, and overall well-being.</p>
-                <div class="flex items-center space-x-4 text-subtext">
-                    <span class="bg-secondary px-3 py-1 rounded-full">Mindfulness</span>
-                    <span class="flex items-center">
-                        <i class="far fa-bookmark mr-2"></i>
-                        Save
-                    </span>
-                </div>
-            </article>
+            <!-- Featured Article Container -->
+            <div class="featured-article"></div>
 
-            <!-- Regular Articles -->
-            <div class="space-y-8">
-                <article class="flex gap-6 hover-scale article-card p-4 rounded-xl">
-                    <div class="flex-1">
-                        <div class="flex items-center space-x-2 text-subtext mb-2">
-                            <img src="https://source.unsplash.com/random/30x30?portrait" alt="Author" class="w-7 h-7 rounded-full">
-                            <span>Jane Smith</span>
-                            <span>·</span>
-                            <span>3 min read</span>
-                        </div>
-                        <h3 class="text-xl font-bold mb-2 hover:text-accent-hover cursor-pointer">The Future of Sustainable Technology</h3>
-                        <p class="text-subtext">Discovering how innovative technologies are paving the way for a more sustainable future.</p>
-                    </div>
-                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&h=134&q=80" alt="Article" class="w-[200px] h-[134px] object-cover rounded-lg">
-                </article>
-
-                <article class="flex gap-6 hover-scale article-card p-4 rounded-xl">
-                    <div class="flex-1">
-                        <div class="flex items-center space-x-2 text-subtext mb-2">
-                            <img src="https://source.unsplash.com/random/30x30?portrait" alt="Author" class="w-7 h-7 rounded-full">
-                            <span>Mark Johnson</span>
-                            <span>·</span>
-                            <span>4 min read</span>
-                        </div>
-                        <h3 class="text-xl font-bold mb-2 hover:text-accent-hover cursor-pointer">The Psychology of Productivity</h3>
-                        <p class="text-subtext">Understanding the mental frameworks that drive successful productivity habits.</p>
-                    </div>
-                    <img src="https://images.unsplash.com/photo-1434494878577-86c23bcb06b9?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&h=134&q=80" alt="Article" class="w-[200px] h-[134px] object-cover rounded-lg">
-                </article>
-            </div>
+            <!-- Regular Articles Container -->
+            <div class="articles-container space-y-8"></div>
         </div>
 
         <!-- Sidebar -->
         <aside class="hidden lg:block w-80 ml-8 space-y-8">
-                <div class="bg-secondary p-8 rounded-xl shadow-sm">
-                    <h3 class="font-bold text-xl mb-6">Discover more of what matters to you</h3>
-                    <div class="flex flex-wrap gap-3">
-                        <span class="tag bg-white px-4 py-2 rounded-full text-sm hover:bg-accent hover:text-white cursor-pointer transition-all shadow-sm">Technology</span>
-                        <span class="tag bg-white px-4 py-2 rounded-full text-sm hover:bg-accent hover:text-white cursor-pointer transition-all shadow-sm">Mindfulness</span>
-                        <span class="tag bg-white px-4 py-2 rounded-full text-sm hover:bg-accent hover:text-white cursor-pointer transition-all shadow-sm">Productivity</span>
-                        <span class="tag bg-white px-4 py-2 rounded-full text-sm hover:bg-accent hover:text-white cursor-pointer transition-all shadow-sm">Writing</span>
-                        <span class="tag bg-white px-4 py-2 rounded-full text-sm hover:bg-accent hover:text-white cursor-pointer transition-all shadow-sm">Self Development</span>
+            <div class="bg-secondary p-8 rounded-xl shadow-sm">
+                <h3 class="font-bold text-xl mb-6">Discover more of what matters to you</h3>
+                <div class="flex flex-wrap gap-3">
+                    <span class="tag bg-white px-4 py-2 rounded-full text-sm hover:bg-accent hover:text-white cursor-pointer transition-all shadow-sm">Technology</span>
+                    <span class="tag bg-white px-4 py-2 rounded-full text-sm hover:bg-accent hover:text-white cursor-pointer transition-all shadow-sm">Mindfulness</span>
+                    <span class="tag bg-white px-4 py-2 rounded-full text-sm hover:bg-accent hover:text-white cursor-pointer transition-all shadow-sm">Productivity</span>
+                    <span class="tag bg-white px-4 py-2 rounded-full text-sm hover:bg-accent hover:text-white cursor-pointer transition-all shadow-sm">Writing</span>
+                    <span class="tag bg-white px-4 py-2 rounded-full text-sm hover:bg-accent hover:text-white cursor-pointer transition-all shadow-sm">Self Development</span>
                 </div>
             </div>
 
             <div class="border-t border-border pt-8">
                 <h3 class="font-bold text-lg mb-6">Recommended writers</h3>
-                <div class="space-y-6">
-                    <div class="flex items-center justify-between hover-scale p-3 rounded-xl transition-all duration-200 hover:bg-secondary">
-                        <div class="flex items-center space-x-3">
-                            <img src="https://source.unsplash.com/random/40x40?portrait" alt="Writer" class="w-10 h-10 rounded-full">
-                            <div>
-                                <p class="font-bold">Sarah Wilson</p>
-                                <p class="text-sm text-subtext">Tech Journalist</p>
-                            </div>
-                        </div>
-                        <button class="text-accent hover:text-accent-hover px-4 py-1 rounded-full border border-accent hover:bg-accent hover:text-white transition-all duration-200">Follow</button>
-                    </div>
-                    <div class="flex items-center justify-between hover-scale p-3 rounded-xl transition-all duration-200 hover:bg-secondary">
-                        <div class="flex items-center space-x-3">
-                            <img src="https://source.unsplash.com/random/40x40?portrait" alt="Writer" class="w-10 h-10 rounded-full">
-                            <div>
-                                <p class="font-bold">David Chen</p>
-                                <p class="text-sm text-subtext">Product Designer</p>
-                            </div>
-                        </div>
-                        <button class="text-accent hover:text-accent-hover px-4 py-1 rounded-full border border-accent hover:bg-accent hover:text-white transition-all duration-200">Follow</button>
-                    </div>
-                </div>
+                <!-- Writers Container -->
+                <div class="writers-container space-y-6"></div>
             </div>
         </aside>
     </main>
@@ -276,5 +208,7 @@
             </div>
         </div>
     </footer>
+
+    <script src="js/app.js"></script>
 </body>
 </html>
