@@ -3,152 +3,278 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minimalist Productivity App</title>
+    <title>CherifsMagazine</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Note: Georgia is a web-safe font, no need to import from Google Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        primary: '#F7F9FC',
-                        secondary: '#FFFFFF',
-                        accent: '#007AFF',
-                        'accent-hover': '#005BBB',
-                        text: '#1A1A1A',
-                        muted: '#6B7280',
-                        divider: '#E5E7EB'
+                        primary: '#FFFFFF',
+                        secondary: '#F9F9F9',
+                        accent: '#1A8917',
+                        'accent-hover': '#115D0D',
+                        text: '#242424',
+                        subtext: '#6B6B6B',
+                        border: '#E0E0E0'
                     },
                     fontFamily: {
-                        sans: ['Poppins', 'sans-serif'],
+                        georgia: ['Georgia', 'serif'],
                     },
-                    boxShadow: {
-                        'custom': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-                        'custom-hover': '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+                    maxWidth: {
+                        'content': '800px',
+                    },
+                    spacing: {
+                        '18': '4.5rem',
                     }
                 }
             }
         }
     </script>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+        }
+        .article-content {
+            line-height: 1.8;
+        }
+        blockquote {
+            font-style: italic;
+            border-left: 4px solid #1A8917;
+            padding-left: 1rem;
+            margin: 1.5rem 0;
+        }
+        .hover-scale {
+            transition: transform 0.2s ease-in-out, box-shadow 0.3s ease;
+        }
+        .hover-scale:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        .article-card {
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+        .article-card:hover {
+            border-color: #E0E0E0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        .tag {
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .tag:hover {
+            transform: translateY(-2px);
+        }
+        .tag::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #1A8917;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+        .tag:hover::before {
+            opacity: 1;
+        }
+        .nav-link {
+            position: relative;
+            padding-bottom: 4px;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #1A8917;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        .featured-image {
+            position: relative;
+            overflow: hidden;
+        }
+        .featured-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .featured-image:hover::after {
+            opacity: 1;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+    </style>
 </head>
-<body class="bg-primary min-h-screen font-sans">
+<body class="bg-primary text-text">
     <!-- Header -->
-    <header class="bg-secondary shadow-custom sticky top-0 z-10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <header class="border-b border-border sticky top-0 bg-primary/95 backdrop-blur-sm z-50">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-8 py-4">
             <div class="flex justify-between items-center">
-                <div class="flex items-center space-x-3">
-                    <i class="fas fa-check-circle text-accent text-3xl"></i>
-                    <h1 class="text-2xl font-bold text-text tracking-tight">Productivity App</h1>
+                <h1 class="text-2xl font-bold">CherifsMagazine</h1>
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#" class="nav-link text-text hover:text-accent-hover">Home</a>
+                    <a href="#" class="nav-link text-text hover:text-accent-hover">Our Story</a>
+                    <a href="#" class="nav-link text-text hover:text-accent-hover">Write</a>
+                    <a href="#" class="nav-link text-text hover:text-accent-hover">Sign In</a>
+                    <button class="bg-accent hover:bg-accent-hover text-white px-6 py-2 rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
+                        Get Started
+                    </button>
                 </div>
-                <button id="addTaskBtn" 
-                    class="bg-accent hover:bg-accent-hover text-white px-6 py-3 rounded-lg transition-all duration-200 flex items-center transform hover:scale-105 hover:shadow-lg">
-                    <i class="fas fa-plus mr-2"></i>
-                    Add Task
+                <button class="md:hidden text-2xl">
+                    <i class="fas fa-bars"></i>
                 </button>
             </div>
-        </div>
+        </nav>
     </header>
 
     <!-- Main Content -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <!-- Stats Section -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <div class="bg-white rounded-xl p-6 shadow-custom hover:shadow-custom-hover transition-shadow">
-                <div class="flex items-center space-x-3">
-                    <div class="bg-blue-100 p-3 rounded-lg">
-                        <i class="fas fa-tasks text-accent text-xl"></i>
-                    </div>
-                    <div>
-                        <h3 class="text-muted text-sm">Total Tasks</h3>
-                        <p class="text-2xl font-semibold text-text" id="totalTasks">0</p>
-                    </div>
+    <main class="max-w-7xl mx-auto px-4 sm:px-8 py-8 flex">
+        <!-- Articles Column -->
+        <div class="flex-1 max-w-content">
+            <!-- Featured Article -->
+            <article class="mb-12 hover-scale article-card rounded-xl overflow-hidden">
+                <div class="featured-image rounded-lg overflow-hidden mb-6">
+                    <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Featured Article" class="w-full h-[450px] object-cover transform transition-transform duration-700 hover:scale-105">
                 </div>
-            </div>
-            <div class="bg-white rounded-xl p-6 shadow-custom hover:shadow-custom-hover transition-shadow">
-                <div class="flex items-center space-x-3">
-                    <div class="bg-green-100 p-3 rounded-lg">
-                        <i class="fas fa-check text-green-600 text-xl"></i>
-                    </div>
-                    <div>
-                        <h3 class="text-muted text-sm">Completed</h3>
-                        <p class="text-2xl font-semibold text-text" id="completedTasks">0</p>
-                    </div>
+                <div class="flex items-center space-x-2 text-subtext mb-4">
+                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=40&h=40&q=80" alt="Author" class="w-10 h-10 rounded-full">
+                    <span>John Doe</span>
+                    <span>·</span>
+                    <span>5 min read</span>
                 </div>
-            </div>
-            <div class="bg-white rounded-xl p-6 shadow-custom hover:shadow-custom-hover transition-shadow">
-                <div class="flex items-center space-x-3">
-                    <div class="bg-yellow-100 p-3 rounded-lg">
-                        <i class="fas fa-clock text-yellow-600 text-xl"></i>
-                    </div>
-                    <div>
-                        <h3 class="text-muted text-sm">Pending</h3>
-                        <p class="text-2xl font-semibold text-text" id="pendingTasks">0</p>
-                    </div>
+                <h2 class="text-3xl font-bold mb-4 hover:text-accent-hover cursor-pointer">The Art of Mindful Living: A Journey Through Self-Discovery</h2>
+                <p class="text-lg text-subtext mb-4">Explore the transformative power of mindfulness and how it can reshape your daily experiences, relationships, and overall well-being.</p>
+                <div class="flex items-center space-x-4 text-subtext">
+                    <span class="bg-secondary px-3 py-1 rounded-full">Mindfulness</span>
+                    <span class="flex items-center">
+                        <i class="far fa-bookmark mr-2"></i>
+                        Save
+                    </span>
                 </div>
+            </article>
+
+            <!-- Regular Articles -->
+            <div class="space-y-8">
+                <article class="flex gap-6 hover-scale article-card p-4 rounded-xl">
+                    <div class="flex-1">
+                        <div class="flex items-center space-x-2 text-subtext mb-2">
+                            <img src="https://source.unsplash.com/random/30x30?portrait" alt="Author" class="w-7 h-7 rounded-full">
+                            <span>Jane Smith</span>
+                            <span>·</span>
+                            <span>3 min read</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 hover:text-accent-hover cursor-pointer">The Future of Sustainable Technology</h3>
+                        <p class="text-subtext">Discovering how innovative technologies are paving the way for a more sustainable future.</p>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&h=134&q=80" alt="Article" class="w-[200px] h-[134px] object-cover rounded-lg">
+                </article>
+
+                <article class="flex gap-6 hover-scale article-card p-4 rounded-xl">
+                    <div class="flex-1">
+                        <div class="flex items-center space-x-2 text-subtext mb-2">
+                            <img src="https://source.unsplash.com/random/30x30?portrait" alt="Author" class="w-7 h-7 rounded-full">
+                            <span>Mark Johnson</span>
+                            <span>·</span>
+                            <span>4 min read</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 hover:text-accent-hover cursor-pointer">The Psychology of Productivity</h3>
+                        <p class="text-subtext">Understanding the mental frameworks that drive successful productivity habits.</p>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1434494878577-86c23bcb06b9?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&h=134&q=80" alt="Article" class="w-[200px] h-[134px] object-cover rounded-lg">
+                </article>
             </div>
         </div>
 
-        <!-- Task Grid -->
-        <div id="taskGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            <!-- Task cards will be dynamically inserted here -->
-        </div>
+        <!-- Sidebar -->
+        <aside class="hidden lg:block w-80 ml-8 space-y-8">
+                <div class="bg-secondary p-8 rounded-xl shadow-sm">
+                    <h3 class="font-bold text-xl mb-6">Discover more of what matters to you</h3>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="tag bg-white px-4 py-2 rounded-full text-sm hover:bg-accent hover:text-white cursor-pointer transition-all shadow-sm">Technology</span>
+                        <span class="tag bg-white px-4 py-2 rounded-full text-sm hover:bg-accent hover:text-white cursor-pointer transition-all shadow-sm">Mindfulness</span>
+                        <span class="tag bg-white px-4 py-2 rounded-full text-sm hover:bg-accent hover:text-white cursor-pointer transition-all shadow-sm">Productivity</span>
+                        <span class="tag bg-white px-4 py-2 rounded-full text-sm hover:bg-accent hover:text-white cursor-pointer transition-all shadow-sm">Writing</span>
+                        <span class="tag bg-white px-4 py-2 rounded-full text-sm hover:bg-accent hover:text-white cursor-pointer transition-all shadow-sm">Self Development</span>
+                </div>
+            </div>
+
+            <div class="border-t border-border pt-8">
+                <h3 class="font-bold text-lg mb-6">Recommended writers</h3>
+                <div class="space-y-6">
+                    <div class="flex items-center justify-between hover-scale p-3 rounded-xl transition-all duration-200 hover:bg-secondary">
+                        <div class="flex items-center space-x-3">
+                            <img src="https://source.unsplash.com/random/40x40?portrait" alt="Writer" class="w-10 h-10 rounded-full">
+                            <div>
+                                <p class="font-bold">Sarah Wilson</p>
+                                <p class="text-sm text-subtext">Tech Journalist</p>
+                            </div>
+                        </div>
+                        <button class="text-accent hover:text-accent-hover px-4 py-1 rounded-full border border-accent hover:bg-accent hover:text-white transition-all duration-200">Follow</button>
+                    </div>
+                    <div class="flex items-center justify-between hover-scale p-3 rounded-xl transition-all duration-200 hover:bg-secondary">
+                        <div class="flex items-center space-x-3">
+                            <img src="https://source.unsplash.com/random/40x40?portrait" alt="Writer" class="w-10 h-10 rounded-full">
+                            <div>
+                                <p class="font-bold">David Chen</p>
+                                <p class="text-sm text-subtext">Product Designer</p>
+                            </div>
+                        </div>
+                        <button class="text-accent hover:text-accent-hover px-4 py-1 rounded-full border border-accent hover:bg-accent hover:text-white transition-all duration-200">Follow</button>
+                    </div>
+                </div>
+            </div>
+        </aside>
     </main>
 
-    <!-- Modal -->
-    <div id="taskModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-        <div class="bg-white rounded-xl w-full max-w-md mx-4 transform transition-all duration-300 scale-95 opacity-0" id="modalContent">
-            <div class="p-8">
-                <div class="flex justify-between items-center mb-8">
-                    <h2 id="modalTitle" class="text-2xl font-semibold text-text">Add New Task</h2>
-                    <button id="closeModal" class="text-muted hover:text-text transition-colors p-2 hover:bg-gray-100 rounded-full">
-                        <i class="fas fa-times"></i>
-                    </button>
+    <!-- Footer -->
+    <footer class="bg-secondary mt-12 py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+                <div class="col-span-2">
+                    <h2 class="text-2xl font-bold mb-4">CherifsMagazine</h2>
+                    <p class="text-subtext">Discover stories, thinking, and expertise from writers on any topic.</p>
                 </div>
-                <form id="taskForm" class="space-y-6">
-                    <div>
-                        <label for="taskTitle" class="block text-sm font-medium text-text mb-2">Task Title</label>
-                        <input type="text" id="taskTitle" name="taskTitle" required
-                            class="w-full px-4 py-3 border border-divider rounded-xl focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-shadow"
-                            placeholder="Enter task title">
-                    </div>
-                    <div>
-                        <label for="taskDescription" class="block text-sm font-medium text-text mb-2">Description</label>
-                        <textarea id="taskDescription" name="taskDescription" rows="3"
-                            class="w-full px-4 py-3 border border-divider rounded-xl focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-shadow"
-                            placeholder="Enter task description"></textarea>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label for="taskDueDate" class="block text-sm font-medium text-text mb-2">Due Date</label>
-                            <input type="date" id="taskDueDate" name="taskDueDate"
-                                class="w-full px-4 py-3 border border-divider rounded-xl focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-shadow">
-                        </div>
-                        <div>
-                            <label for="taskPriority" class="block text-sm font-medium text-text mb-2">Priority</label>
-                            <select id="taskPriority" name="taskPriority"
-                                class="w-full px-4 py-3 border border-divider rounded-xl focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-shadow">
-                                <option value="low">Low Priority</option>
-                                <option value="medium">Medium Priority</option>
-                                <option value="high">High Priority</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="pt-4 flex justify-end space-x-3">
-                        <button type="button" id="cancelBtn"
-                            class="px-6 py-3 border-2 border-divider rounded-xl text-muted hover:text-text hover:border-accent transition-all duration-200">
-                            Cancel
-                        </button>
-                        <button type="submit"
-                            class="px-6 py-3 bg-accent hover:bg-accent-hover text-white rounded-xl transition-all duration-200 transform hover:scale-105 hover:shadow-lg">
-                            Save Task
-                        </button>
-                    </div>
-                </form>
+                <div>
+                    <h3 class="font-bold mb-4">About</h3>
+                    <ul class="space-y-2 text-subtext">
+                        <li><a href="#" class="hover:text-accent-hover">Our Story</a></li>
+                        <li><a href="#" class="hover:text-accent-hover">Membership</a></li>
+                        <li><a href="#" class="hover:text-accent-hover">Write for Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold mb-4">Legal</h3>
+                    <ul class="space-y-2 text-subtext">
+                        <li><a href="#" class="hover:text-accent-hover">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-accent-hover">Terms of Service</a></li>
+                        <li><a href="#" class="hover:text-accent-hover">Contact</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
-
-    <script src="js/app.js"></script>
+    </footer>
 </body>
 </html>
